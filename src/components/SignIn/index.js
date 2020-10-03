@@ -9,7 +9,8 @@ const SignIn = () => {
   const [details, setDetails] = useState({
     email: "",
     password: ""
-  })
+  });
+  const [error, setError] = useState("");
 
   const handleInputChange = e => {
     e.preventDefault();
@@ -21,6 +22,15 @@ const SignIn = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    const user = userDetails.find(item => item.email == details.email && item.password == details.password);
+    if(!user) {
+      setError("Email or password is incorrect!");
+    } else {
+      setError("");
+      localStorage.setItem("loggedIn", true);
+      history.push("/inventory")
+    }
   }
 
   return (
@@ -44,6 +54,7 @@ const SignIn = () => {
           onChange={handleInputChange}
           /><br />
         <button className="btn">Sign In</button>
+        <p className="error">{error ? error : ""}</p>
         <p>Dont have an account?, <Link to="/signup">Create a new account here</Link></p>
       </form>
       <img src={SignInImg} />

@@ -10,6 +10,7 @@ import PrivateRoute, {isLogin, logOut} from "./components/PrivateRoute";
 const App = () => {
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(isLogin());
 
   const handleNavBtnClick = e => {
     e.preventDefault();
@@ -34,7 +35,7 @@ const App = () => {
             <li>
               <Link to="/inventory">Inventory</Link>
             </li>
-            {isLogin() ? (
+            {isLoggedIn ? (
               <li onClick={logOut}><a>Log Out</a></li>
             ) : (
               <>

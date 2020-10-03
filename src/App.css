@@ -5,6 +5,10 @@
   --color-4: #67E6DC;
 }
 
+.error {
+  color: var(--color-3);
+}
+
 img {
   width: 50%;
 }
