@@ -1,1 +1,85 @@
+:root {
+  --color-1: #3498DB;
+  --color-2: #2475B0;
+  --color-3: #E83350;
+  --color-4: #67E6DC;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button:focus {
+  outline:0;
+}
+
+.container {
+  position: relative;
+}
+
+.nav {
+  padding: 1% 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+  font-size: larger;
+  text-align: center;
+}
+
+a:hover {
+  color: blueviolet;
+}
+
+.menu {
+  font-size: larger;
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 4px;
+  border: none;
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+.menu:active {
+  opacity: 0.8;
+}
+
+.show-nav {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    padding: 1% 0;
+    display: none;
+  }
+
+  li {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid blueviolet;
+    margin-top: 2%;
+  }
+
+  .menu {
+    display: flex;
+  }
+
+  .show-nav {
+    display: flex;
+  }
+}
