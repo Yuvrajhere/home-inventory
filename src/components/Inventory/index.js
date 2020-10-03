@@ -8,7 +8,7 @@ const products = [
     daysConsumption: 15,
     QuantityInInventory: 0,
     lastAddedDate: "22/09/20",
-    lastAddedQuantity: 10
+    lastAddedQuantity: 10,
   },
   {
     name: "Rice",
@@ -16,7 +16,7 @@ const products = [
     daysConsumption: 30,
     QuantityInInventory: 0,
     lastAddedDate: "22/09/20",
-    lastAddedQuantity: 5
+    lastAddedQuantity: 5,
   },
   {
     name: "Sunflower Oil",
@@ -24,71 +24,60 @@ const products = [
     daysConsumption: 20,
     QuantityInInventory: 0,
     lastAddedDate: "22/09/20",
-    lastAddedQuantity: 8
+    lastAddedQuantity: 8,
   },
 ];
 
 const Inventory = () => {
-
   const [productsData, setProductsData] = useState(products);
 
   return (
     <div className="Inventory">
-      <div>
-        <h1>Inventory</h1>
-      </div>
-      <div>
-        <h2>Your Inventory</h2>
-        {(productsData.length > 0) ? (
-          <table>
-          <tr>
-            <th>Product Name</th>
-            <th>Last Added Date</th>
-            <th>Last Added Quantity</th>
-            <th>Remaining Days</th>
-          </tr>
-          
-          {productsData.map((product, index) => {
-            return (
-              <tr>
-                <td>{product.name}</td>
-                <td>{product.lastAddedDate}</td>
-                <td>{product.lastAddedQuantity}</td>
-                <td>{product.daysConsumption}</td>
-              </tr>
-            )
-          })}
-        </table>
-        ) : (
-          <h1>Your Inventory is empty</h1>
-        )}
-        
-      </div>
-      <div>
-        <h2>Your Products</h2>
-        {(productsData.length > 0) ? (
-          <table>
-          <tr>
-            <th>Product Name</th>
-            <th>Quantity consumed</th>
-            <th>Days to consume</th>
-          </tr>
-          
-          {productsData.map((product, index) => {
-            return (
-              <tr>
-                <td>{product.name}</td>
-                <td>{product.lastAddedDate}</td>
-                <td>{product.lastAddedQuantity}</td>
-                <td>{product.daysConsumption}</td>
-              </tr>
-            )
-          })}
-        </table>
-        ) : (
-          <h1>Your Inventory is empty</h1>
-        )}
-      </div>
+    <h1>Inventory</h1>
+     {(productsData.length > 0) ? (
+    <div>
+      <h2>Your Inventory</h2>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Last Added Date</th>
+          <th>Last Added Quantity</th>
+          <th>Remaining Days</th>
+        </tr>
+
+        {productsData.map((product, index) => {
+          return (
+            <tr>
+              <td>{product.name}</td>
+              <td>{product.lastAddedDate}</td>
+              <td>{product.lastAddedQuantity}</td>
+              <td>{product.daysConsumption}</td>
+            </tr>
+          );
+        })}
+      </table>
+      <h2>Your Products</h2>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity consumed</th>
+          <th>Days to consume</th>
+        </tr>
+
+        {productsData.map((product, index) => {
+          return (
+            <tr>
+              <td>{product.name}</td>
+              <td>{product.quantityConsumption}</td>
+              <td>{product.daysConsumption}</td>
+            </tr>
+          );
+        })}
+      </table>
+    </div>
+   ) : (
+     <h1>No products added yet</h1>
+   )}
       <div>
         <form>
           <h2>Add a new Product</h2>

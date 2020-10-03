@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Inventory from "./components/Inventory";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import PrivateRoute, {isLogin, logOut} from "./components/PrivateRoute";
 
 const App = () => {
 
@@ -33,12 +34,19 @@ const App = () => {
             <li>
               <Link to="/inventory">Inventory</Link>
             </li>
-            <li>
-              <Link to="/signin">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
+            {isLogin() ? (
+              <li onClick={logOut}><a>Log Out</a></li>
+            ) : (
+              <>
+                <li>
+                <Link to="/signin">Sign In</Link>
+                  </li>
+                <li>
+                  <Link to="/signup">Sign Up</Link>
+                </li>
+              </>
+            )}
+            
           </nav>
           <button 
             className="menu"
@@ -54,9 +62,7 @@ const App = () => {
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/inventory">
-            <Inventory />
-          </Route>
+          <PrivateRoute component={Inventory} path="/inventory"/>
           <Route path="/">
             <Home />
           </Route>
