@@ -13,6 +13,13 @@ const App = () => {
   const handleNavBtnClick = e => {
     e.preventDefault();
     setIsNavbarVisible(!isNavbarVisible);
+    hideNavbarAfterDelay();
+  }
+
+  const hideNavbarAfterDelay = () => {
+    setTimeout(function() {
+      setIsNavbarVisible(false);
+    }, 2000)
   }
 
   return (
@@ -35,7 +42,9 @@ const App = () => {
           </nav>
           <button 
             className="menu"
-            onClick={handleNavBtnClick}>☰</button>
+            onClick={handleNavBtnClick}>
+              {isNavbarVisible ? "X" : "☰"}
+          </button>
         </div>
 
         <Switch>

@@ -1,75 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Inventory.css";
+
+const products = [
+  {
+    name: "Wheat floor",
+    quantityConsumption: 10,
+    daysConsumption: 15,
+    QuantityInInventory: 0,
+    lastAddedDate: "22/09/20",
+    lastAddedQuantity: 10
+  },
+  {
+    name: "Rice",
+    quantityConsumption: 5,
+    daysConsumption: 30,
+    QuantityInInventory: 0,
+    lastAddedDate: "22/09/20",
+    lastAddedQuantity: 5
+  },
+  {
+    name: "Sunflower Oil",
+    quantityConsumption: 8,
+    daysConsumption: 20,
+    QuantityInInventory: 0,
+    lastAddedDate: "22/09/20",
+    lastAddedQuantity: 8
+  },
+];
 
 const Inventory = () => {
+
+  const [productsData, setProductsData] = useState(products);
+
   return (
-    <div>
+    <div className="Inventory">
       <div>
         <h1>Inventory</h1>
       </div>
       <div>
         <h2>Your Inventory</h2>
-        <table>
+        {(productsData.length > 0) ? (
+          <table>
           <tr>
             <th>Product Name</th>
             <th>Last Added Date</th>
             <th>Last Added Quantity</th>
             <th>Remaining Days</th>
           </tr>
-          <tr>
-            <td>Peter</td>
-            <td>Griffin</td>
-            <td>$100</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Lois</td>
-            <td>Griffin</td>
-            <td>$150</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Joe</td>
-            <td>Swanson</td>
-            <td>$300</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Cleveland</td>
-            <td>Brown</td>
-            <td>$250</td>
-            <td>20</td>
-          </tr>
+          
+          {productsData.map((product, index) => {
+            return (
+              <tr>
+                <td>{product.name}</td>
+                <td>{product.lastAddedDate}</td>
+                <td>{product.lastAddedQuantity}</td>
+                <td>{product.daysConsumption}</td>
+              </tr>
+            )
+          })}
         </table>
+        ) : (
+          <h1>Your Inventory is empty</h1>
+        )}
+        
       </div>
       <div>
         <h2>Your Products</h2>
-        <table>
+        {(productsData.length > 0) ? (
+          <table>
           <tr>
             <th>Product Name</th>
             <th>Quantity consumed</th>
             <th>Days to consume</th>
           </tr>
-          <tr>
-            <td>Peter</td>
-            <td>Griffin</td>
-            <td>$100</td>
-          </tr>
-          <tr>
-            <td>Lois</td>
-            <td>Griffin</td>
-            <td>$150</td>
-          </tr>
-          <tr>
-            <td>Joe</td>
-            <td>Swanson</td>
-            <td>$300</td>
-          </tr>
-          <tr>
-            <td>Cleveland</td>
-            <td>Brown</td>
-            <td>$250</td>
-          </tr>
+          
+          {productsData.map((product, index) => {
+            return (
+              <tr>
+                <td>{product.name}</td>
+                <td>{product.lastAddedDate}</td>
+                <td>{product.lastAddedQuantity}</td>
+                <td>{product.daysConsumption}</td>
+              </tr>
+            )
+          })}
         </table>
+        ) : (
+          <h1>Your Inventory is empty</h1>
+        )}
       </div>
       <div>
         <form>

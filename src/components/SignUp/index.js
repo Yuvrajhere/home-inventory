@@ -1,32 +1,32 @@
 import React from "react";
+import "./SignUp.css"
 import {Link} from "react-router-dom";
+import SignUpImg from "../../assets/join.svg"
 
 const SignUp = () => {
   return (
-    <div>
+    <div className="SignUp">
       <form>
-        <h2>Sign Up</h2>
-        <label>
-          Name : 
-          <input 
-            type="text" 
-            name="name"/>
-        </label><br />
-        <label>
-          Email : 
-          <input 
-            type="email" 
-            name="email"/>
-        </label><br />
-        <label>
-          Password :
-          <input
-            type="password"
-            name="email"/>
-        </label><br />
-        <button>Sign Up</button>
+        <h1>Sign Up</h1>
+        <label for="name">Name</label><br />
+        <input 
+          id="name"
+          type="text" 
+          name="name"/><br />
+        <label for="email">Email</label><br />
+        <input 
+          id="email"
+          type="email" 
+          name="email"/><br />
+        <label for="password">Password</label><br />
+        <input
+          id="password"
+          type="password"
+          name="email"/><br />
+        <button className="btn">Sign Up</button>
         <p>Already have an account?, <Link to="/signin">Sign In here</Link></p>
       </form>
+      <img src={SignUpImg} />
     </div>
   );
 };

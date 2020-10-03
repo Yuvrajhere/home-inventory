@@ -1,0 +1,50 @@
+.SignUp {
+  padding: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SignUp form {
+  width: 40%;
+}
+
+.SignUp form h1 {
+  color: var(--color-2);
+  font-size: 3rem;
+  margin-bottom: 10%;
+}
+
+.SignUp form label {
+  font-size: 1.2rem;
+}
+
+.SignUp form input {
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 1.5%;
+  margin-bottom: 5%;
+}
+
+.SignUp form p {
+  margin-top: 5%;
+  font-size: 1.2rem;
+}
+
+.SignUp img {
+  width: 40%;
+}
+
+@media (max-width: 600px) {
+  .SignUp {
+    flex-direction: column;
+  }
+
+  .SignUp form {
+    width: 100%;
+  }
+
+  .SignUp img {
+    width: 100%;
+  }
+}
