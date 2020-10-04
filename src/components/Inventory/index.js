@@ -1,42 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import "./Inventory.css";
-import NewProductFormImg from "../../assets/shopping-2.svg"
-
-const products = [
-  {
-    name: "Wheat floor",
-    quantityConsumption: 10,
-    daysConsumption: 15,
-    QuantityInInventory: 0,
-    lastAddedDate: "22/09/20",
-    lastAddedQuantity: 10,
-  },
-  {
-    name: "Rice",
-    quantityConsumption: 5,
-    daysConsumption: 30,
-    QuantityInInventory: 0,
-    lastAddedDate: "22/09/20",
-    lastAddedQuantity: 5,
-  },
-  {
-    name: "Sunflower Oil",
-    quantityConsumption: 8,
-    daysConsumption: 20,
-    QuantityInInventory: 0,
-    lastAddedDate: "22/09/20",
-    lastAddedQuantity: 8,
-  },
-];
+import NewProductFormImg from "../../assets/shopping-2.svg";
+import UpdateProductFormImg from "../../assets/use-1.svg";
 
 const Inventory = () => {
-  const [productsData, setProductsData] = useState(products);
+
+  const [productsData, setProductsData] = useState([]);
+
+  const fetchData = () => {
+    const productsDataStored = JSON.parse(localStorage.getItem("products") || "[]");
+    setProductsData(productsDataStored);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   const [newProductData, setNewProductData] = useState({
     name: "",
     quantityConsumption: "",
-    daysConsumption: ""
+    daysConsumption: "",
+    quantityInInventory: 0,
+    lastAddedDate: new Date(),
+    lastAddedQuantity: 0,
   });
 
   const handleInputChange = e => {
@@ -48,21 +36,62 @@ const Inventory = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const temp = [...productsData];
+    temp.push(newProductData);
+    setProductsData([...temp]);
 
+    console.log(productsData);
+
+    const dataInLocalStorage = JSON.parse(localStorage.getItem("products") || "[]");
+    
+    dataInLocalStorage.push(newProductData);
+
+    localStorage.setItem("products", JSON.stringify(dataInLocalStorage));
+
+    console.log(productsData);
+
+    setNewProductData({
+      name: "",
+      quantityConsumption: "",
+      daysConsumption: ""
+    });
   }
+
+ 
 
   return (
     <div className="Inventory">
+    { console.log("products", productsData)}
       <h1>Inventory</h1>
       {productsData.length > 0 ? (
-        <div>
+        <div className="stored">
           <h2>Your Inventory</h2>
+          <table>
+            <tr>
+              <th>Product Name</th>
+              {/* <th>Last Added Date</th>
+              <th>Last Added Quantity</th> */}
+              <th>Quantity Remaining</th>
+              <th>Remaining Days</th>
+            </tr>
+
+            {productsData.map((product, index) => {
+              return (
+                <tr>
+                  <td>{product.name}</td>
+                  {/* <td>{product.lastAddedDate}</td>
+                  <td>{product.lastAddedQuantity}</td> */}
+                  <td>{product.quantityInInventory}</td>
+                  <td>{product.daysConsumption}</td>
+                </tr>
+              );
+            })}
+          </table>
           <table>
             <tr>
               <th>Product Name</th>
               <th>Last Added Date</th>
               <th>Last Added Quantity</th>
-              <th>Remaining Days</th>
             </tr>
 
             {productsData.map((product, index) => {
@@ -71,7 +100,6 @@ const Inventory = () => {
                   <td>{product.name}</td>
                   <td>{product.lastAddedDate}</td>
                   <td>{product.lastAddedQuantity}</td>
-                  <td>{product.daysConsumption}</td>
                 </tr>
               );
             })}
@@ -80,7 +108,7 @@ const Inventory = () => {
           <table>
             <tr>
               <th>Product Name</th>
-              <th>Quantity consumed</th>
+              <th>Quantity being consumed</th>
               <th>Days to consume</th>
             </tr>
 
@@ -112,7 +140,7 @@ const Inventory = () => {
             autoComplete="off"
           />
           <br />
-          <label for="quantityConsumption">quantityConsumption</label>
+          <label for="quantityConsumption">How much do you consume it? (in Kg/Ltr)</label>
           <br />
           <input
             id="quantityConsumption"
@@ -123,7 +151,7 @@ const Inventory = () => {
             autoComplete="off"
           />
           <br />
-          <label for="daysConsumption">daysConsumption</label>
+          <label for="daysConsumption">How many days do you take to consume it?</label>
           <br />
           <input
             id="daysConsumption"
@@ -137,25 +165,23 @@ const Inventory = () => {
         </form>
         <img src={NewProductFormImg} />
       </div>
-      )}
       <div className="SignUp">
+        <img src={UpdateProductFormImg} />
         <form onSubmit={handleSubmit}>
           <h1>Update Inventory</h1>
           <label for="name">Product Name</label>
           <br />
-          <input
-            id="name"
-            type="text"
-            name="name"
-            value={newProductData.name}
-            onChange={handleInputChange}
-            autoComplete="off"
-          />
+          <select>
+            <option selected>Select Product</option>
+            {productsData.map((product, index) => {
+              return <option value={product.name}>{product.name}</option>
+            })}
+          </select>
           <br />
-          <label for="quantityConsumption">quantityConsumption</label>
+          <label for="quantityAdded">How much quantity should be added?</label>
           <br />
           <input
-            id="quantityConsumption"
+            id="quantityAdded"
             type="text"
             name="quantityConsumption"
             value={newProductData.quantityConsumption}
@@ -163,11 +189,11 @@ const Inventory = () => {
             autoComplete="off"
           />
           <br />
-          <label for="daysConsumption">daysConsumption</label>
+          <label for="daysConsumption">When did you bought this product?</label>
           <br />
           <input
             id="daysConsumption"
-            type="text"
+            type="date"
             name="daysConsumption"
             value={newProductData.daysConsumption}
             onChange={handleInputChange}
@@ -175,7 +201,6 @@ const Inventory = () => {
           <br />
           <button className="btn">Submit</button>
         </form>
-        <img src={NewProductFormImg} />
       </div>
     </div>
   );
